@@ -187,3 +187,45 @@ select.inp{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns
 .ic-lg{width:32px;height:32px}
 .ic-xl{width:40px;height:40px}
 .ic-wrap{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;flex-shrink:0}
+
+
+/* ── PANTALLA DE BIENVENIDA ─────────────────── */
+#welcome-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #0D4D47;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+}
+#welcome-card {
+  background: #fff; border-radius: 28px;
+  padding: 40px 32px; max-width: 380px; width: 100%;
+  text-align: center; box-shadow: 0 24px 64px rgba(0,0,0,.25);
+}
+#welcome-logo {
+  width: 80px; height: 80px; border-radius: 22px;
+  background: #52C896; margin: 0 auto 20px;
+}
+#welcome-card h1 {
+  font-size: 24px; font-weight: 800; color: #0D4D47; margin: 0 0 10px;
+}
+#welcome-card p {
+  font-size: 14px; color: #6b7280; line-height: 1.6; margin: 0 0 28px;
+}
+#welcome-card label {
+  display: block; font-size: 13px; font-weight: 600;
+  color: #0D4D47; margin-bottom: 10px; text-align: left;
+}
+#welcome-nombre {
+  width: 100%; box-sizing: border-box;
+  border: 2px solid #e5e7eb; border-radius: 14px;
+  padding: 14px 16px; font-size: 16px; outline: none;
+  margin-bottom: 20px; transition: border-color .2s;
+}
+#welcome-nombre:focus { border-color: #52C896; }
+#welcome-btn {
+  width: 100%; background: #0D4D47; color: #fff;
+  border: none; border-radius: 14px; padding: 16px;
+  font-size: 16px; font-weight: 700; cursor: pointer;
+  transition: background .2s;
+}
+#welcome-btn:hover { background: #3AABA6; }

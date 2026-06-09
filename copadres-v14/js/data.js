@@ -3,37 +3,14 @@
 // DATA
 // ═══════════════════════════════════════════
 var state = {
-  usuario: 'Mamá',
+  usuario: '',
   contactoEmergencia: {nombre:'', telefono:''},
-  hijos: [
-    {id:1,nombre:'Sofia',fechaNacimiento:'2018-03-15',colegio:'Colegio San José',emoji:'👧'},
-    {id:2,nombre:'Miguel',fechaNacimiento:'2020-07-22',colegio:'Jardín Infantil Arco Iris',emoji:'👦'}
-  ],
-  mensajes: [
-    {id:1,emisor:'Mamá',texto:'Mañana llevo a Sofía al colegio a las 7am ☀️',fecha:'01/04 08:30'},
-    {id:2,emisor:'Papá',texto:'Perfecto, yo paso por Miguel a las 3pm 👍',fecha:'01/04 09:15'},
-    {id:3,emisor:'Mamá',texto:'¿Puedes confirmar el control médico de Miguel esta semana?',fecha:'01/04 10:00'}
-  ],
-  eventos: [
-    {id:1,tipo:'Colegio',titulo:'Reunión de apoderados',fecha:'2026-04-10',hijo:'Sofia',responsable:'Mamá',confirmado:true},
-    {id:2,tipo:'Salud',titulo:'Control pediátrico',fecha:'2026-04-15',hijo:'Miguel',responsable:'Papá',confirmado:false},
-    {id:3,tipo:'Actividad',titulo:'Cumpleaños amiga',fecha:'2026-04-20',hijo:'Sofia',responsable:'Mamá',confirmado:true},
-    {id:4,tipo:'Legal',titulo:'Mediación familiar',fecha:'2026-04-25',hijo:'Ambos',responsable:'Ambos',confirmado:false}
-  ],
-  gastos: [
-    {id:1,categoria:'Educación',descripcion:'Mensualidad colegio Abril',monto:450000,pagador:'Mamá',fecha:'2026-04-01'},
-    {id:2,categoria:'Salud',descripcion:'Consulta pediatra',monto:80000,pagador:'Papá',fecha:'2026-03-28'},
-    {id:3,categoria:'Alimentación',descripcion:'Mercado semanal',monto:120000,pagador:'Mamá',fecha:'2026-03-25'},
-    {id:4,categoria:'Transporte',descripcion:'Ruta escolar mes',monto:95000,pagador:'Papá',fecha:'2026-03-01'}
-  ],
-  acuerdos: [
-    {id:1,titulo:'Plan de Crianza 2026',tipo:'Mediación',fecha:'2026-01-15',descripcion:'Custodia compartida. Semanas alternas. Mamá: lunes a viernes. Papá: fines de semana alternos.',estado:'Vigente'},
-    {id:2,titulo:'Acuerdo de Gastos',tipo:'Legal',fecha:'2026-02-01',descripcion:'División 50/50 de gastos educativos y médicos. Pagos el primer día de cada mes.',estado:'Vigente'},
-    {id:3,titulo:'Régimen de Visitas',tipo:'Notarial',fecha:'2025-11-10',descripcion:'Visitas en días festivos según calendario acordado con mediador.',estado:'Vigente'}
-  ],
-  conflictos: [
-    {id:1,tipo:'Horario',descripcion:'Desacuerdo sobre horario de visitas en Semana Santa',fecha:'2026-03-20',estado:'En resolución'}
-  ]
+  hijos: [],
+  mensajes: [],
+  eventos: [],
+  gastos: [],
+  acuerdos: [],
+  conflictos: []
 };
 
 // ═══════════════════════════════════════════

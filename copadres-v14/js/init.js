@@ -19,7 +19,12 @@ cargarAdvertencias();
   }
 })();
 
-// 3. Render initial views
+// 3. Si es primera vez (sin usuario), mostrar pantalla de bienvenida
+if (!state.usuario) {
+  window.addEventListener('DOMContentLoaded', function(){ showWelcome(); });
+}
+
+// 4. Render initial views
 renderSidebar();
 renderDashboard();
 renderChat();
