@@ -3,6 +3,18 @@
 // CHAT
 // ═══════════════════════════════════════════
 function switchUser(u){
+  // Block identity switch if user is already registered
+  if (state.usuario && u !== state.usuario) {
+    var toast = document.createElement('div');
+    toast.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#1B4D3E;color:#fff;padding:12px 20px;border-radius:14px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.3)';
+    toast.textContent = '⚠️ No puedes cambiar de identidad en esta sesión';
+    document.body.appendChild(toast);
+    setTimeout(function(){ toast.remove(); }, 3000);
+    // Re-highlight correct pill
+    document.getElementById('pill-mama').classList.toggle('active', state.usuario==='Mamá');
+    document.getElementById('pill-papa').classList.toggle('active', state.usuario==='Papá');
+    return;
+  }
   state.usuario=u;
   document.getElementById('pill-mama').classList.toggle('active',u==='Mamá');
   document.getElementById('pill-papa').classList.toggle('active',u==='Papá');
@@ -76,6 +88,17 @@ function renderChat(){
   // update switcher
   document.getElementById('pill-mama').classList.toggle('active',state.usuario==='Mamá');
   document.getElementById('pill-papa').classList.toggle('active',state.usuario==='Papá');
+  // Lock pills: disable the other identity once user is registered
+  var pillMama = document.getElementById('pill-mama');
+  var pillPapa = document.getElementById('pill-papa');
+  if (state.usuario) {
+    var locked = 'opacity:.4;cursor:not-allowed;pointer-events:none';
+    if (pillMama) pillMama.style.cssText = (state.usuario==='Mamá' ? '' : locked);
+    if (pillPapa) pillPapa.style.cssText = (state.usuario==='Papá' ? '' : locked);
+  } else {
+    if (pillMama) pillMama.style.cssText = '';
+    if (pillPapa) pillPapa.style.cssText = '';
+  }
   var lbl=document.getElementById('chat-user-label');
   if(lbl) lbl.textContent=state.usuario;
   var av=document.getElementById('chat-avatar');
