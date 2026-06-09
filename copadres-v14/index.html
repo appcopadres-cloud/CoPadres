@@ -515,11 +515,26 @@
       <option>Educación</option><option>Salud</option><option>Alimentación</option><option>Transporte</option><option>Ropa</option><option>Otro</option>
     </select>
     <label class="lbl">Pagado por</label>
-    <select class="inp" id="g-pag" style="margin-bottom:20px">
+    <select class="inp" id="g-pag" style="margin-bottom:16px">
       <option>Mamá</option><option>Papá</option>
     </select>
+    <label class="lbl">Comprobante / Boleta (opcional)</label>
+    <input type="file" id="g-boleta" accept="image/*" style="display:none" onchange="previewBoleta(this)"/>
+    <div id="g-boleta-preview" style="margin-bottom:16px">
+      <button type="button" onclick="document.getElementById('g-boleta').click()" style="width:100%;padding:14px;border:2px dashed #d1d5db;border-radius:14px;background:#f9fafb;color:#6b7280;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
+        <span style="font-size:20px">📎</span> Adjuntar foto de boleta o transferencia
+      </button>
+    </div>
     <button class="btn btn-green" onclick="addGasto()">Guardar gasto</button>
     <button class="btn btn-outline" onclick="closeModal('modal-gasto')" style="margin-top:8px">Cancelar</button>
+  </div>
+</div>
+
+<!-- Lightbox boleta -->
+<div id="modal-boleta" class="modal-overlay" style="display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.85);z-index:9999" onclick="this.style.display='none'">
+  <div style="max-width:95vw;max-height:90vh;position:relative">
+    <img id="modal-boleta-img" src="" style="max-width:95vw;max-height:85vh;border-radius:16px;display:block"/>
+    <button onclick="document.getElementById('modal-boleta').style.display='none'" style="position:absolute;top:-12px;right:-12px;width:32px;height:32px;border-radius:50%;background:#fff;border:none;font-size:18px;cursor:pointer;font-weight:800;line-height:1">×</button>
   </div>
 </div>
 
