@@ -4,7 +4,7 @@
 // ═══════════════════════════════════════════
 function switchUser(u){
   // Block identity switch if user is already registered
-  if (state.usuario && u !== state.usuario) {
+  if (state.usuario && u !== state.usuario && (state.usuario === 'Mamá' || state.usuario === 'Papá')) {
     var toast = document.createElement('div');
     toast.style.cssText = 'position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#1B4D3E;color:#fff;padding:12px 20px;border-radius:14px;font-size:13px;font-weight:600;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.3)';
     toast.textContent = '⚠️ No puedes cambiar de identidad en esta sesión';
@@ -86,23 +86,33 @@ function renderChat(){
   }
   box.scrollTop=box.scrollHeight;
   // update switcher
-  document.getElementById('pill-mama').classList.toggle('active',state.usuario==='Mamá');
-  document.getElementById('pill-papa').classList.toggle('active',state.usuario==='Papá');
-  // Lock pills: disable the other identity once user is registered
   var pillMama = document.getElementById('pill-mama');
   var pillPapa = document.getElementById('pill-papa');
-  if (state.usuario) {
+  var esMama = state.usuario === 'Mamá';
+  var esPapa = state.usuario === 'Papá';
+  var esPredefinido = esMama || esPapa;
+  if (pillMama) pillMama.classList.toggle('active', esMama);
+  if (pillPapa) pillPapa.classList.toggle('active', esPapa);
+  // Lock pills only if user is registered AND chose Mamá or Papá
+  // If custom name: hide switcher entirely and show just their name
+  var switcherEl = document.querySelector('.user-switch');
+  if (state.usuario && !esPredefinido) {
+    // Custom name — hide pills, won't confuse the user
+    if (switcherEl) switcherEl.style.display = 'none';
+  } else if (state.usuario && esPredefinido) {
+    if (switcherEl) switcherEl.style.display = '';
     var locked = 'opacity:.4;cursor:not-allowed;pointer-events:none';
-    if (pillMama) pillMama.style.cssText = (state.usuario==='Mamá' ? '' : locked);
-    if (pillPapa) pillPapa.style.cssText = (state.usuario==='Papá' ? '' : locked);
+    if (pillMama) pillMama.style.cssText = esMama ? '' : locked;
+    if (pillPapa) pillPapa.style.cssText = esPapa ? '' : locked;
   } else {
+    if (switcherEl) switcherEl.style.display = '';
     if (pillMama) pillMama.style.cssText = '';
     if (pillPapa) pillPapa.style.cssText = '';
   }
   var lbl=document.getElementById('chat-user-label');
-  if(lbl) lbl.textContent=state.usuario;
+  if(lbl) lbl.textContent=state.usuario||'';
   var av=document.getElementById('chat-avatar');
-  if(av){av.textContent=state.usuario[0];av.style.background=state.usuario==='Mamá'?'#7c3aed':'#2563eb';}
+  if(av && state.usuario){av.textContent=state.usuario[0];av.style.background=esMama?'#7c3aed':'#2563eb';}
 }
 
 function mostrarBannerBloqueo(r) {
