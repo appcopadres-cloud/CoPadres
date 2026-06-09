@@ -27,6 +27,27 @@ function renderDashboard(){
   var greet=document.getElementById('hero-greeting');
   if(greet) greet.textContent=state.usuario?'Hola, '+state.usuario:'';
 
+  // Banner de conexión: mostrar si hay usuario pero sin sala familiar
+  var bannerEl = document.getElementById('connect-banner');
+  var sinSala = state.usuario && typeof syncConectado === 'function' && !syncConectado() && !localStorage.getItem('cop_family_id');
+  if (sinSala) {
+    if (!bannerEl) {
+      bannerEl = document.createElement('div');
+      bannerEl.id = 'connect-banner';
+      bannerEl.style.cssText = 'background:linear-gradient(135deg,#3AABA6,#1B4D3E);border-radius:18px;padding:18px;margin-bottom:14px;display:flex;align-items:center;gap:14px;cursor:pointer';
+      bannerEl.onclick = function(){ abrirModalSala(); };
+      bannerEl.innerHTML = '<div style="font-size:36px;flex-shrink:0">🔗</div>'
+        +'<div style="flex:1"><div style="color:#fff;font-size:15px;font-weight:800;margin-bottom:3px">Conecta con el otro padre/madre</div>'
+        +'<div style="color:rgba(255,255,255,.75);font-size:12px">Toca aquí para ingresar el código de sala y sincronizar en tiempo real</div></div>'
+        +'<div style="color:#fff;font-size:22px">›</div>';
+      var main = document.getElementById('panel-dashboard');
+      if (main) main.insertBefore(bannerEl, main.firstChild);
+    }
+    bannerEl.style.display = 'flex';
+  } else if (bannerEl) {
+    bannerEl.style.display = 'none';
+  }
+
   // Chat hero: show last message
   var lastMsg=state.mensajes[state.mensajes.length-1];
   var heroLast=document.getElementById('chat-hero-last');
