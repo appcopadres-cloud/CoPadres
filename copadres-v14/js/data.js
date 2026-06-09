@@ -146,7 +146,25 @@ var DICCIONARIO = {
       "weon","weona","hueon","hueona","cagado","cagada",
       "cresta","la cresta","andate a la cresta",
       "hdp","ctm","ptm","hpta",
-      "rajado","rajada","gil","gila"
+      "rajado","rajada","gil","gila",
+      /* chilenos moderados expandidos */
+      "weón","weóna","wn","wna","qliao","qlia",
+      "fome la wea","qué wea","esa wea","esta wea","la wea",
+      "cagao","cagá","cagada que eres","que cagada","se cago",
+      "cerdo","cerda","puerco","asqueroso","asquerosa",
+      "cretino","cretina","pelotudo","pelotuda","boludo","boluda",
+      "me tiene la cagá","me tiene ctm","me tiene weon",
+      "anda a cagar","anda a la caga","andaacagar",
+      "conchesumare","conchesumare","conche la mar",
+      "hpta","hputa","h.p.","hp que","hijo de p",
+      "cara de palo","cara de ql","caradeql",
+      "gil de mierda","tonto culiao","idiota culiao",
+      "payaso culiao","ridículo culiao","tonto de la chucha",
+      "para la cagá","pal lote","pal perno","pal hoyo",
+      "chucha la madre","chucha la mar","chuchalamar",
+      "que mierd","de mierda","es una mierda","eres mierda",
+      "me cago","se cago todo","cago todo",
+      "recule","recúlate","culiao de mierda"
     ]
   },
 
@@ -188,17 +206,58 @@ var DICCIONARIO = {
     ],
 
     violencia_verbal_extrema: [
-      "hijodeputa","hijo de puta","hijueputa","hijo de la gran puta",
+      "hijodeputa","hijo de puta","hijueputa","hijo de la gran puta","hdp","h.d.p","h d p",
+      "hijadeputa","hija de puta","hijadeput","hijuepucha",
       "malparido","malparida","bastardo","bastarda","desgraciado","desgraciada",
-      "conchetumadre","conche tu madre","conchadesumadre","concha de su madre",
-      "culiado","culiada","culiao","culiau",
-      "saco de weas","saco de hueas","sacowea",
-      "zorra","perra","golfa","ramera","furcia",
+      /* CTM — todas las variantes */
+      "ctm","c t m","c.t.m","c.t.m.","ctmr","ctmre","ctmrs",
+      "conchetumadre","conche tu madre","conchetumadres","conchetu madre",
+      "conchetumare","conchetumari","conchatumare","concha tu madre",
+      "conchadesumadre","concha de su madre","concha e su madre",
+      "conchasumadre","conchesumadre","conche su madre",
+      "ctm oye","oye ctm","ctm po","ctm poh",
+      /* PTM variantes */
+      "ptm","p t m","p.t.m","ptmre","ptmrs","la ptm","la puta madre",
+      "puta madre","puta que te pario","puta que pario","la puta que te pario",
+      /* culiado todas variantes */
+      "culiado","culiada","culiao","culiau","culia","culi4o","culi@do",
+      "culiadísimo","culiadísima","culiadazo","culiadaza",
+      "culiao conchetumare","culiao ctm","aweonao","aweonada",
+      "ahueonao","ahueonada","aweonao ctm",
+      /* saco wea variantes */
+      "saco de weas","saco de hueas","sacowea","saco wea","saco e wea",
+      "saco e huea","sacohuea","sacodehueas","saco de huevadas",
+      /* chucha variantes */
+      "la chucha","chucha","anda a la chucha","andate a la chucha",
+      "chucha tu madre","chuchatumadre","chuchadesumadre",
+      "andate a la chucha de tu madre","vete a la chucha",
+      "la chucha que te pario","chucha que te pario",
+      "chuchatumare","chucha tu mare",
+      /* raja variantes */
+      "raja","rajado","rajada","la raja","andate a la raja",
+      "metete en la raja","en la raja","de la raja","raja e tu madre",
+      "rajao","rajá",
+      /* animales / agresivos */
+      "zorra","perra","golfa","ramera","furcia","prostituta","puta barata",
+      "perro culiao","perro culiado","gato culiao","animal de mierda",
+      "bestia culiada","bestia culiao",
+      /* ql y variantes */
+      "qliao","qlia","ql","q.l","q.l.","q l","cul0","culi0","q liao",
+      /* wea general grave */
+      "wea","weá","huea","hueá","weonada","hueonada","weacala",
+      "weon culiao","hueon culiao","wn culiao",
+      /* maricón */
+      "maricón","maraco","marica","maricona","mariconada",
+      /* genéricos graves */
       "vete a la mierda","al carajo","que te pudras",
-      "andate a la mierda","anda a la chucha","la chucha",
+      "andate a la mierda","a la mierda","que se vaya a la mierda",
+      "me cago en ti","me cago en tu madre","cago en ti",
+      "ándate a la cagá","andate a la caga","anda a la caga",
       "te odio profundamente","te detesto con toda mi alma",
       "eres lo peor del mundo","eres una basura","eres escoria",
-      "no mereces vivir","no deberías existir"
+      "no mereces vivir","no deberías existir",
+      "indio culiao","pobre culiao","muerto de hambre culiao",
+      "cara de raja","cara de ql","cara de pico"
     ],
 
     manipulacion_grave: [

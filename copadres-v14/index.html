@@ -562,12 +562,40 @@
     <input class="inp" id="ac-titulo" placeholder="Ej: Régimen de visitas" style="margin-bottom:12px"/>
     <label class="lbl">Tipo</label>
     <select class="inp" id="ac-tipo" style="margin-bottom:12px">
-      <option>Custodia</option><option>Visitas</option><option>Económico</option><option>Salud</option><option>Educación</option><option>Otro</option>
+      <option>Mediación</option><option>Legal</option><option>Notarial</option><option>Custodia</option><option>Visitas</option><option>Económico</option><option>Salud</option><option>Educación</option><option>Verbal</option><option>Otro</option>
+    </select>
+    <label class="lbl">Estado</label>
+    <select class="inp" id="ac-estado" style="margin-bottom:12px">
+      <option>Vigente</option><option>Suspendido</option><option>Vencido</option>
     </select>
     <label class="lbl">Descripción</label>
-    <textarea class="inp" id="ac-desc" rows="3" placeholder="Describe el acuerdo..." style="margin-bottom:20px"></textarea>
+    <textarea class="inp" id="ac-desc" rows="3" placeholder="Describe los puntos principales..." style="margin-bottom:14px"></textarea>
+    <label class="lbl">Documento PDF o imagen (opcional)</label>
+    <input type="file" id="ac-pdf" accept="application/pdf,image/*" style="display:none" onchange="previewAcuerdoPDF(this)"/>
+    <div id="ac-pdf-preview" style="margin-bottom:16px">
+      <button type="button" onclick="document.getElementById('ac-pdf').click()" style="width:100%;padding:14px;border:2px dashed #d1d5db;border-radius:14px;background:#f9fafb;color:#6b7280;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">
+        <span style="font-size:20px">📄</span> Adjuntar PDF o imagen del acuerdo
+      </button>
+    </div>
     <button class="btn btn-green" onclick="addAcuerdo()">Guardar acuerdo</button>
     <button class="btn btn-outline" onclick="closeModal('modal-acuerdo')" style="margin-top:8px">Cancelar</button>
+  </div>
+</div>
+
+<!-- MODAL: PDF VIEWER -->
+<div id="modal-pdf-viewer" class="modal-overlay" style="display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.9);z-index:9999" onclick="if(event.target===this)this.style.display='none'">
+  <div style="max-width:95vw;max-height:92vh;position:relative;width:100%">
+    <div style="background:#fff;border-radius:16px;overflow:hidden;max-height:88vh">
+      <div style="background:#1B4D3E;padding:12px 16px;display:flex;justify-content:space-between;align-items:center">
+        <span id="modal-pdf-nombre" style="color:#fff;font-weight:700;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1">Documento</span>
+        <div style="display:flex;gap:8px;flex-shrink:0;margin-left:8px">
+          <button id="modal-pdf-dl" style="background:#52C896;color:#0c3a2d;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer">⬇️ Descargar</button>
+          <button onclick="document.getElementById('modal-pdf-viewer').style.display='none'" style="background:rgba(255,255,255,.2);color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer">✕</button>
+        </div>
+      </div>
+      <iframe id="modal-pdf-frame" src="" style="width:100%;height:75vh;border:none;display:none"></iframe>
+      <img id="modal-pdf-img" src="" style="width:100%;max-height:75vh;object-fit:contain;display:none"/>
+    </div>
   </div>
 </div>
 

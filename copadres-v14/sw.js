@@ -1,5 +1,5 @@
 /* CoPadres v14 — Service Worker */
-const CACHE = 'copadres-v14.12';
+const CACHE = 'copadres-v14.13';
 const ASSETS = [
   './',
   './index.html',

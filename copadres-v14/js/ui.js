@@ -63,10 +63,14 @@ function welcomePaso2() {
   var card = document.getElementById('welcome-card');
   card.innerHTML = '<div id="welcome-logo">' + _LOGO_SVG_SM + '</div>'
     + '<h1>Hola, ' + nombre + ' 👋</h1>'
-    + '<p>¿Quieres conectarte con el otro padre/madre para compartir datos en tiempo real?</p>'
-    + '<button class="welcome-btn-green" onclick="welcomeCrearSala()">🏠 Crear sala familiar</button>'
-    + '<button class="welcome-btn-outline" onclick="welcomeUnirse()">🔑 Tengo un código de sala</button>'
-    + '<button class="welcome-btn-skip" onclick="finishWelcome()">Omitir por ahora →</button>';
+    + '<p style="font-size:14px;line-height:1.6;margin-bottom:6px">Para que <strong>tú y el otro padre/madre</strong> compartan calendario, gastos y chat en tiempo real, deben estar en la <strong>misma sala familiar</strong>.</p>'
+    + '<div style="background:#f0fdf4;border-radius:14px;padding:12px 14px;margin-bottom:16px;font-size:12px;color:#166534;line-height:1.5">'
+    + '📌 <strong>¿Es el primero en instalar la app?</strong> Crea la sala y comparte el código.<br>'
+    + '📌 <strong>¿El otro padre ya tiene código?</strong> Úsalo para unirte.'
+    + '</div>'
+    + '<button class="welcome-btn-green" onclick="welcomeCrearSala()">🏠 Soy el primero — Crear sala</button>'
+    + '<button class="welcome-btn-outline" onclick="welcomeUnirse()">🔑 Tengo un código — Unirme</button>'
+    + '<button class="welcome-btn-skip" onclick="finishWelcome()">Usar sin conectar →</button>';
 }
 
 function welcomeCrearSala() {
@@ -78,9 +82,12 @@ function welcomeCrearSala() {
     if (typeof analyticsEvent === 'function') { try { analyticsEvent('family_created'); } catch(e) {} }
     card.innerHTML = [
       '<h1>¡Sala creada! 🎉</h1>',
-      '<p>Comparte este código con el otro padre/madre:</p>',
-      '<div style="font-size:42px;font-weight:900;letter-spacing:8px;color:#1B4D3E;background:#e8f5ee;border-radius:16px;padding:18px 24px;margin:16px 0;text-align:center">' + codigo + '</div>',
-      '<p style="font-size:13px;color:#6b7280">Cuando se una con el mismo código, todo se sincronizará automáticamente.</p>',
+      '<p style="font-size:13px;color:#6b7280;margin-bottom:6px">Envía este código al otro padre/madre por WhatsApp:</p>',
+      '<div style="font-size:42px;font-weight:900;letter-spacing:8px;color:#1B4D3E;background:#e8f5ee;border-radius:16px;padding:18px 24px;margin:12px 0;text-align:center;cursor:pointer" onclick="if(navigator.clipboard)navigator.clipboard.writeText(\''+codigo+'\').then(function(){showToast(\'Código copiado\',\'success\')})">' + codigo + '</div>',
+      '<div style="background:#fffbeb;border-radius:12px;padding:10px 12px;font-size:12px;color:#92400e;line-height:1.5;margin-bottom:14px">',
+      '👆 <strong>Toca el código</strong> para copiarlo.<br>',
+      'El otro padre debe abrir la app → elegir su rol → tocar <strong>"Tengo un código"</strong> e ingresar este código.',
+      '</div>',
       '<button class="welcome-btn-green" onclick="finishWelcome()">Entrar a CoPadres →</button>'
     ].join('');
   });
