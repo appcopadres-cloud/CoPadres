@@ -1,5 +1,5 @@
 /* CoPadres v14 — Service Worker */
-const CACHE = 'copadres-v14.4';
+const CACHE = 'copadres-v14.5';
 const ASSETS = [
   './',
   './index.html',
@@ -17,6 +17,8 @@ const ASSETS = [
   './js/conflicts.js',
   './js/modals.js',
   './js/safety.js',
+  './js/firebase-config.js',
+  './js/sync.js',
   './js/init.js',
   './assets/icon-192.png',
   './assets/icon-512.png',

@@ -1,0 +1,93 @@
+═══════════════════════════════════════════════════
+CÓMO ACTIVAR LA SINCRONIZACIÓN EN TIEMPO REAL
+CoPadres v14 — Firebase Setup
+═══════════════════════════════════════════════════
+
+PASO 1 — Crear proyecto Firebase (gratis)
+──────────────────────────────────────────
+1. Ve a: https://console.firebase.google.com
+2. Clic en "Agregar proyecto"
+3. Nombre: copadres  (o el que quieras)
+4. Desactiva Google Analytics (no es necesario)
+5. Clic en "Crear proyecto"
+
+PASO 2 — Agregar app Web
+──────────────────────────────────────────
+1. En la pantalla del proyecto, clic en el ícono </>  (Web)
+2. Nombre de la app: CoPadres
+3. NO marques Firebase Hosting
+4. Clic en "Registrar app"
+5. Copia los valores de firebaseConfig que aparecen
+
+PASO 3 — Pegar en firebase-config.js
+──────────────────────────────────────────
+Abre el archivo: js/firebase-config.js
+Reemplaza cada valor con los que copiaste:
+
+  apiKey:            "AIzaSy..."
+  authDomain:        "mi-proyecto.firebaseapp.com"
+  projectId:         "mi-proyecto"
+  storageBucket:     "mi-proyecto.appspot.com"
+  messagingSenderId: "123456789"
+  appId:             "1:123456789:web:abc..."
+
+PASO 4 — Crear base de datos Firestore
+──────────────────────────────────────────
+1. En el menú izquierdo → "Firestore Database"
+2. Clic en "Crear base de datos"
+3. Selecciona "Comenzar en modo de producción"
+4. Elige la región más cercana (ej: us-central1)
+5. Clic en "Listo"
+
+PASO 5 — Configurar reglas de seguridad
+──────────────────────────────────────────
+1. En Firestore → pestaña "Reglas"
+2. Reemplaza todo el contenido con esto:
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /familias/{familiaId} {
+      allow read, write: if true;
+      match /mensajes/{mensajeId} {
+        allow read, write: if true;
+      }
+    }
+  }
+}
+
+3. Clic en "Publicar"
+
+NOTA: Estas reglas permiten acceso público a quien tenga
+el código de sala de 6 caracteres. Para producción
+avanzada se puede agregar autenticación Firebase.
+
+═══════════════════════════════════════════════════
+CÓMO FUNCIONA LA CONEXIÓN ENTRE PADRES
+═══════════════════════════════════════════════════
+
+PADRE 1 (quien instala primero):
+  → Al abrir la app por primera vez, ingresa su nombre
+  → Toca "Crear sala familiar"
+  → Recibe un código de 6 letras (ej: ABC123)
+  → Comparte ese código con el otro padre/madre
+
+PADRE 2 (quien se une):
+  → Instala la app
+  → Al abrir por primera vez, ingresa su nombre
+  → Toca "Tengo un código de sala"
+  → Ingresa el código ABC123
+  → ¡Conectados!
+
+DESDE LA APP (si ya están instalados):
+  → Sidebar → botón "Conectar co-padre/madre"
+  → Crear sala o unirse con código
+
+UNA VEZ CONECTADOS:
+  → Mensajes, gastos, eventos, hijos, acuerdos y
+    conflictos se sincronizan en tiempo real
+  → Ambos ven los cambios al instante
+  → Funciona aunque uno esté offline (se sincroniza
+    cuando vuelve la conexión)
+
+═══════════════════════════════════════════════════

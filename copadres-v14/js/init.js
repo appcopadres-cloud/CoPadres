@@ -1,13 +1,17 @@
 /* CoPadres v14 — init.js */
-// ═══════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════
 
-// 1. Cargar estado persistido (mensajes, hijos, eventos, gastos, etc.)
+// 1. Cargar estado persistido
 cargarEstado();
 cargarAdvertencias();
 
-// 2. Handle deep link shortcuts from manifest
+// 2. Inicializar Firebase si está configurado
+if (typeof FIREBASE_ENABLED !== 'undefined' && FIREBASE_ENABLED) {
+  syncInit(FIREBASE_CONFIG);
+  // Reconectar sala si ya existía
+  if (state.usuario) syncReconectar();
+}
+
+// 3. Handle deep link shortcuts
 (function(){
   var params = new URLSearchParams(window.location.search);
   var panel = params.get('panel');
@@ -19,12 +23,12 @@ cargarAdvertencias();
   }
 })();
 
-// 3. Si es primera vez (sin usuario), mostrar pantalla de bienvenida
+// 4. Primera vez → mostrar bienvenida
 if (!state.usuario) {
   window.addEventListener('DOMContentLoaded', function(){ showWelcome(); });
 }
 
-// 4. Render initial views
+// 5. Render vistas iniciales
 renderSidebar();
 renderDashboard();
 renderChat();

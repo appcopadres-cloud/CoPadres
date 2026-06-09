@@ -38,7 +38,7 @@ function addEvento(){
   var resp=document.getElementById('ev-resp').value;
   if(!titulo||!fecha) return showToast('Completa el título y la fecha','error');
   state.eventos.push({id:Date.now(),tipo:tipo,titulo:titulo,fecha:fecha,hijo:hijo,responsable:resp,confirmado:false});
-  guardarEstado();
+  guardarEstado(['eventos']);
   closeModal('modal-evento');
   document.getElementById('ev-titulo').value='';
   renderEventos();

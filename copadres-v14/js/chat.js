@@ -144,12 +144,18 @@ function sendMessage(){
   ocultarBanner();
   var now = new Date();
   var fecha = (now.getDate())+'/'+(now.getMonth()+1)+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
-  state.mensajes.push({id: state.mensajes.length+1, emisor: state.usuario, texto: txt, fecha: fecha});
-  guardarEstado();
+  var msg = {id: Date.now(), emisor: state.usuario, texto: txt, fecha: fecha, ts: Date.now()};
+  // Si hay sala activa, enviar por Firestore (el listener actualiza state.mensajes)
+  if (typeof syncEnviarMensaje === 'function' && syncConectado()) {
+    syncEnviarMensaje(msg);
+  } else {
+    state.mensajes.push(msg);
+    guardarEstado();
+    renderChat();
+    renderSidebar();
+    if (document.getElementById('chat-hero-last')) renderDashboard();
+  }
   inp.value = '';
-  renderChat();
-  renderSidebar();
-  if (document.getElementById('chat-hero-last')) renderDashboard();
 }
 
 // Live filter mientras escribe

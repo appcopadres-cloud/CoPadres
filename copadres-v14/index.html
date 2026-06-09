@@ -116,6 +116,7 @@
       <div style="font-size:12px;font-weight:700;color:#15803d;display:flex;align-items:center;gap:6px"><svg class="ic ic-sm" style="color:#15803d"><use href="#ic-shield-check"/></svg> Filtro activo</div>
       <div style="font-size:11px;color:#16a34a;margin-top:2px">400+ palabras bloqueadas</div>
     </div>
+    <button onclick="abrirModalSala()" id="btn-sala-sidebar" style="width:100%;display:flex;align-items:center;gap:8px;padding:10px 12px;background:#3AABA6;color:#fff;border:none;border-radius:12px;font-size:12px;font-weight:700;margin-bottom:8px;cursor:pointer;font-family:inherit">🔗 Conectar co-padre/madre</button>
     <a href="instalar.html" style="display:flex;align-items:center;gap:8px;padding:10px 12px;background:#1B4D3E;color:#fff;border-radius:12px;text-decoration:none;font-size:12px;font-weight:700;margin-bottom:10px"><svg class="ic ic-sm"><use href="#ic-arrow"/></svg> Instalar en el teléfono</a>
     <div id="user-info-sidebar" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f9fafb;border-radius:12px"></div>
   </div>
@@ -587,10 +588,13 @@ if ('serviceWorker' in navigator) {
 
 <!-- Leaflet Maps -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<!-- Firebase compat (descomentear cuando se active en v15) -->
-<!-- <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script> -->
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
 <!-- CoPadres App Modules -->
+<script src="js/firebase-config.js"></script>
+<script src="js/sync.js"></script>
 <script src="js/icons.js"></script>
 <script src="js/ui.js"></script>
 <script src="js/data.js"></script>

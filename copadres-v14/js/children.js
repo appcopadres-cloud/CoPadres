@@ -37,7 +37,7 @@ function addHijo(){
   var colegio=document.getElementById('h-colegio').value.trim();
   if(!nombre) return showToast('Ingresa el nombre del hijo/a','error');
   state.hijos.push({id:Date.now(),nombre:nombre,fechaNacimiento:fecha,colegio:colegio});
-  guardarEstado();
+  guardarEstado(['hijos']);
   closeModal('modal-hijo');
   document.getElementById('h-nombre').value='';
   renderHijos();

@@ -356,7 +356,7 @@ function filtrar(txt) {
 // ── PERSISTENCIA DE ESTADO ───────────────────
 var STATE_KEY = 'cop_state_v14';
 
-function guardarEstado() {
+function guardarEstado(camposSync) {
   try {
     var datos = {
       usuario: state.usuario,
@@ -370,6 +370,10 @@ function guardarEstado() {
     };
     localStorage.setItem(STATE_KEY, JSON.stringify(datos));
   } catch(e) {}
+  // Sincronizar campos compartidos si hay sala activa
+  if (typeof syncConectado === 'function' && syncConectado() && camposSync && camposSync.length) {
+    syncGuardar(camposSync);
+  }
 }
 
 function cargarEstado() {

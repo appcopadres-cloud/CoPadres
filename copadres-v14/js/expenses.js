@@ -39,7 +39,7 @@ function addGasto(){
   if(!desc||!monto) return showToast('Completa descripción y monto','error');
   var today=new Date().toISOString().split('T')[0];
   state.gastos.push({id:Date.now(),categoria:cat,descripcion:desc,monto:monto,pagador:pag,fecha:today});
-  guardarEstado();
+  guardarEstado(['gastos']);
   closeModal('modal-gasto');
   document.getElementById('g-desc').value='';
   document.getElementById('g-monto').value='';
