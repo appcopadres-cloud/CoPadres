@@ -2,18 +2,37 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<!-- Viewport sin user-scalable=no para permitir accesibilidad (zoom) -->
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="description" content="Plataforma de coparentalidad con filtro anti-ofensas, calendario, gastos y acuerdos. Segura, privada y diseñada para Chile."/>
+<!-- PWA iOS -->
 <meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 <meta name="apple-mobile-web-app-title" content="CoPadres"/>
+<!-- PWA Android / Chrome -->
 <meta name="mobile-web-app-capable" content="yes"/>
-<meta name="theme-color" content="#0D4D47"/>
+<meta name="theme-color" content="#0D4D47" media="(prefers-color-scheme: light)"/>
+<meta name="theme-color" content="#0a3530" media="(prefers-color-scheme: dark)"/>
+<!-- Windows Tiles -->
+<meta name="msapplication-TileColor" content="#0D4D47"/>
+<meta name="msapplication-TileImage" content="assets/icon-192.png"/>
+<!-- SEO / Social -->
+<meta property="og:title" content="CoPadres — Crianza compartida"/>
+<meta property="og:description" content="Comunicación segura entre padres, calendario, gastos y acuerdos."/>
+<meta property="og:image" content="assets/icon-512.png"/>
+<!-- Manifest & Icons -->
 <link rel="manifest" href="manifest.json"/>
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png"/>
 <link rel="icon" type="image/png" sizes="512x512" href="assets/icon-512.png"/>
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png"/>
-<link rel="apple-touch-icon" sizes="192x192" href="assets/icon-192.png"/>
+<!-- iOS Splash Screens (portrait) -->
+<link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3)" href="assets/splash-1290x2796.png"/>
+<link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3)" href="assets/splash-1179x2556.png"/>
+<link rel="apple-touch-startup-image" media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)" href="assets/splash-1170x2532.png"/>
+<link rel="apple-touch-startup-image" media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="assets/splash-750x1334.png"/>
+<!-- Leaflet CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<!-- App CSS -->
 <link rel="stylesheet" href="css/app.css"/>
 <title>CoPadres — Crianza compartida</title>
 </head>
@@ -415,6 +434,10 @@
     <div class="bnav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
     <div class="bnav-label">Seguridad</div>
   </button>
+  <button class="bnav-btn" onclick="openMoreMenu()" id="bn-more">
+    <div class="bnav-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg></div>
+    <div class="bnav-label">Más</div>
+  </button>
 </nav>
 
 </div><!-- #app -->
@@ -526,6 +549,31 @@
 </div>
 
 
+<!-- Toast container -->
+<div id="toast-container"></div>
+
+<!-- More menu overlay (mobile) -->
+<div id="more-overlay" onclick="closeMoreMenu()">
+  <div id="more-sheet" onclick="event.stopPropagation()">
+    <div style="width:36px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 16px"></div>
+    <div style="font-size:14px;font-weight:700;color:var(--txt);margin-bottom:4px">Más secciones</div>
+    <div class="more-grid">
+      <div class="more-item" onclick="closeMoreMenu();goTo('hijos')">
+        <div class="more-item-icon" style="background:#52C896"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px"><circle cx="9" cy="8" r="3"/><path d="M3.5 20v-1.2A4 4 0 017.5 15h3a4 4 0 014 3.8V20"/><circle cx="17" cy="10" r="2.2"/><path d="M14 20v-1a3 3 0 013-3h1a3 3 0 012.5 3v1"/></svg></div>
+        Hijos
+      </div>
+      <div class="more-item" onclick="closeMoreMenu();goTo('acuerdos')">
+        <div class="more-item-icon" style="background:#1B4D3E"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px"><path d="M12 3v18M5 7h14M5 7l-3 7a4 4 0 006 0zM19 7l-3 7a4 4 0 006 0z"/></svg></div>
+        Acuerdos
+      </div>
+      <div class="more-item" onclick="closeMoreMenu();goTo('conflictos')">
+        <div class="more-item-icon" style="background:#ea580c"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22V3"/></svg></div>
+        Conflictos
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- PWA Service Worker Registration -->
 <script>
 if ('serviceWorker' in navigator) {
@@ -544,6 +592,7 @@ if ('serviceWorker' in navigator) {
 
 <!-- CoPadres App Modules -->
 <script src="js/icons.js"></script>
+<script src="js/ui.js"></script>
 <script src="js/data.js"></script>
 <script src="js/nav.js"></script>
 <script src="js/dashboard.js"></script>

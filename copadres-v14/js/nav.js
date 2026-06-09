@@ -33,6 +33,8 @@ function goTo(id){
     b.classList.toggle('active',b.dataset.id===id);
   });
   // Update bottom nav
+  var moreIds = ['hijos','acuerdos','conflictos'];
+  var isMore = moreIds.indexOf(id) !== -1;
   ['dashboard','mensajes','calendario','gastos','seguridad'].forEach(function(key){
     var btn=document.getElementById('bn-'+key);
     if(btn){
@@ -41,6 +43,8 @@ function goTo(id){
       if(dot) dot.style.display=key===id?'block':'none';
     }
   });
+  var moreBtn = document.getElementById('bn-more');
+  if(moreBtn) moreBtn.classList.toggle('active', isMore);
   currentPanel=id;
   // Render panels
   if(id==='dashboard') renderDashboard();

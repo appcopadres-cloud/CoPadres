@@ -18,9 +18,10 @@ function renderConflictos(){
 function addConflicto(){
   var tipo=document.getElementById('c-tipo').value;
   var desc=document.getElementById('c-desc').value.trim();
-  if(!desc) return alert('Describe el conflicto');
+  if(!desc) return showToast('Describe el conflicto','error');
   var today=new Date().toISOString().split('T')[0];
   state.conflictos.push({id:Date.now(),tipo:tipo,descripcion:desc,fecha:today,estado:'Abierto'});
+  guardarEstado();
   closeModal('modal-conflicto');
   document.getElementById('c-desc').value='';
   renderConflictos();

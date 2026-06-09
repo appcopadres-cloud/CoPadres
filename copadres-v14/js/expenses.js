@@ -36,9 +36,10 @@ function addGasto(){
   var monto=parseInt(document.getElementById('g-monto').value)||0;
   var cat=document.getElementById('g-cat').value;
   var pag=document.getElementById('g-pag').value;
-  if(!desc||!monto) return alert('Completa descripción y monto');
+  if(!desc||!monto) return showToast('Completa descripción y monto','error');
   var today=new Date().toISOString().split('T')[0];
   state.gastos.push({id:Date.now(),categoria:cat,descripcion:desc,monto:monto,pagador:pag,fecha:today});
+  guardarEstado();
   closeModal('modal-gasto');
   document.getElementById('g-desc').value='';
   document.getElementById('g-monto').value='';
