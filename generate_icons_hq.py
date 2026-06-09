@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
 CoPadres — Generador de iconos HQ con supersampling 4x
-Logo real: fondo blanco, borde teal redondeado, dos adultos (sin niño).
+Logo real: fondo verde sólido, dos adultos solapados (sin niño).
+Izquierda: verde oscuro. Derecha: teal claro, más grande y adelante.
 """
 import os
 from PIL import Image, ImageDraw, ImageFilter
 
-# Colores corporativos reales
-C_TEAL_BORDER = (0x2B, 0xA8, 0x8E, 255)   # borde exterior teal
-C_TEAL_LIGHT  = (0x4D, 0xC9, 0xC4, 255)   # figura derecha — teal claro
-C_TEAL_DARK   = (0x1B, 0x6B, 0x5A, 255)   # figura izquierda — teal oscuro
-C_WHITE       = (255, 255, 255, 255)
+# Colores corporativos reales extraídos del logo oficial
+C_BG_GREEN    = (0x4C, 0xBF, 0x7A, 255)   # fondo verde brillante
+C_FIGURE_DARK = (0x1B, 0x5E, 0x45, 255)   # figura izquierda verde oscuro
+C_FIGURE_TEAL = (0x3B, 0xBB, 0xB5, 255)   # figura derecha teal/cyan
 C_TRANSPARENT = (0, 0, 0, 0)
 
 SCALE = 4  # supersampling multiplier
@@ -21,45 +21,40 @@ def draw_icon(size):
     img = Image.new("RGBA", (s, s), C_TRANSPARENT)
     d = ImageDraw.Draw(img)
 
+    # 1. Fondo verde redondeado (esquinas ~22%)
     rr = int(s * 0.22)
+    d.rounded_rectangle([0, 0, s-1, s-1], radius=rr, fill=C_BG_GREEN)
 
-    # 1. Fondo blanco con borde teal (stroke)
-    border = int(s * 0.07)
-    d.rounded_rectangle([0, 0, s-1, s-1], radius=rr, fill=C_TEAL_BORDER)
-    d.rounded_rectangle([border, border, s-border-1, s-border-1],
-                         radius=max(4, rr - border), fill=C_WHITE)
-
-    def circle(cx, cy, r, color):
-        d.ellipse([cx-r, cy-r, cx+r, cy+r], fill=color)
-
-    def figure(cx, head_cy, head_r, color):
+    def figure(d_obj, cx, head_cy, head_r, color):
+        """Dibuja cabeza + cuerpo semielipse."""
         # Cabeza
-        circle(cx, head_cy, head_r, color)
-        # Cuerpo — semielipse debajo de la cabeza
-        by_top = head_cy + int(head_r * 0.6)
-        bw = int(head_r * 1.25)
-        bh = int(head_r * 2.2)
-        d.ellipse([cx - bw, by_top, cx + bw, by_top + bh * 2], fill=color)
-        d.rectangle([cx - bw, by_top, cx + bw, by_top + bh], fill=color)
+        d_obj.ellipse([cx - head_r, head_cy - head_r,
+                       cx + head_r, head_cy + head_r], fill=color)
+        # Cuerpo: semielipse (parte superior de una elipse)
+        bw = int(head_r * 1.35)
+        bh = int(head_r * 2.6)
+        by = head_cy + int(head_r * 0.55)
+        # Dibuja elipse completa y tapa la mitad inferior con rectángulo del mismo color
+        d_obj.ellipse([cx - bw, by, cx + bw, by + bh], fill=color)
+        d_obj.rectangle([cx - bw, by + bh // 2, cx + bw, by + bh], fill=C_BG_GREEN)
 
-    # 2. Figura izquierda — teal oscuro, ligeramente más abajo y atrás
-    f1_cx  = int(s * 0.40)
-    f1_cy  = int(s * 0.34)
-    f1_hr  = int(s * 0.115)
-    figure(f1_cx, f1_cy, f1_hr, C_TEAL_DARK)
+    # 2. Figura izquierda — verde oscuro, ligeramente más pequeña y detrás
+    f1_cx = int(s * 0.41)
+    f1_cy = int(s * 0.37)
+    f1_r  = int(s * 0.118)
+    figure(d, f1_cx, f1_cy, f1_r, C_FIGURE_DARK)
 
-    # 3. Figura derecha — teal claro, ligeramente más arriba y adelante
-    f2_cx  = int(s * 0.60)
-    f2_cy  = int(s * 0.31)
-    f2_hr  = int(s * 0.125)
-    figure(f2_cx, f2_cy, f2_hr, C_TEAL_LIGHT)
+    # 3. Figura derecha — teal claro, más grande y delante (solapada)
+    f2_cx = int(s * 0.59)
+    f2_cy = int(s * 0.33)
+    f2_r  = int(s * 0.135)
+    figure(d, f2_cx, f2_cy, f2_r, C_FIGURE_TEAL)
 
-    # Suavizar bordes escalonados del supersampling
-    img = img.filter(ImageFilter.GaussianBlur(radius=SCALE * 0.4))
+    # Suavizar aliasing del supersampling
+    img = img.filter(ImageFilter.GaussianBlur(radius=SCALE * 0.35))
 
     # Bajar a resolución final con LANCZOS
-    out = img.resize((size, size), Image.LANCZOS)
-    return out
+    return img.resize((size, size), Image.LANCZOS)
 
 
 def save_png(img, path):
@@ -70,10 +65,7 @@ def save_png(img, path):
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'copadres-v14', 'assets')
 os.makedirs(OUT, exist_ok=True)
 
-print("Generando iconos HQ con logo real (2 adultos, borde teal)...\n")
-
+print("Generando iconos HQ con logo real CoPadres...\n")
 for size, fname in [(512, 'icon-512.png'), (192, 'icon-192.png'), (180, 'apple-touch-icon.png')]:
-    icon = draw_icon(size)
-    save_png(icon, os.path.join(OUT, fname))
-
-print("\nIconos generados con logo real CoPadres.")
+    save_png(draw_icon(size), os.path.join(OUT, fname))
+print("\nIconos generados.")
