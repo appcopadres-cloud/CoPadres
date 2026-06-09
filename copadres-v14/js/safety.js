@@ -15,11 +15,13 @@ function renderEC(){
 function saveEC(){
   var nombre=document.getElementById('ec-nombre-inp').value.trim();
   var tel=document.getElementById('ec-tel-inp').value.trim();
-  if(!nombre||!tel) return alert('Completa nombre y teléfono');
+  if(!nombre||!tel) return showToast('Completa nombre y teléfono','error');
+  if(!/^\+?[\d\s\-]{7,15}$/.test(tel)) return showToast('Teléfono inválido. Ej: +56912345678','error');
   state.contactoEmergencia={nombre:nombre,telefono:tel};
+  guardarEstado();
   closeModal('modal-ec');
   renderEC();
-  alert('✅ Contacto de emergencia guardado: '+nombre);
+  showToast('Contacto guardado: '+nombre,'success');
 }
 
 function openPanicOverlay(){
@@ -36,7 +38,7 @@ function triggerPanic(){
   if(!ec.nombre||!ec.telefono){
     if(currentPanel!=='seguridad') goTo('seguridad');
     setTimeout(function(){openModal('modal-ec');},300);
-    alert('⚠️ Primero configura tu contacto de emergencia');
+    showToast('Configura primero tu contacto de emergencia','warning');
     return;
   }
   var tel=ec.telefono.replace(/\s/g,'');
@@ -118,7 +120,7 @@ function getLocation(){
 }
 
 function shareLocation(){
-  if(!lastLocation) return alert('Primero obtén tu ubicación');
+  if(!lastLocation) return showToast('Primero obtén tu ubicación','warning');
   var url='https://maps.google.com/?q='+lastLocation.lat+','+lastLocation.lng;
   var msg=encodeURIComponent('📍 Mi ubicación actual: '+url+'\n— Enviado desde Copadres');
   var ec=state.contactoEmergencia;
@@ -131,7 +133,7 @@ function shareLocation(){
 }
 
 function shareLocationSMS(){
-  if(!lastLocation) return alert('Primero obtén tu ubicación');
+  if(!lastLocation) return showToast('Primero obtén tu ubicación','warning');
   var url='https://maps.google.com/?q='+lastLocation.lat+','+lastLocation.lng;
   var msg=encodeURIComponent('📍 Mi ubicación: '+url+' — Copadres');
   var ec=state.contactoEmergencia;
@@ -139,10 +141,5 @@ function shareLocationSMS(){
   window.open('sms:'+tel+'?body='+msg,'_blank');
 }
 
-// Load Leaflet JS dynamically
-(function(){
-  var s=document.createElement('script');
-  s.src='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
-  document.head.appendChild(s);
-})();
+// Leaflet is loaded in index.html — no dynamic injection needed
 

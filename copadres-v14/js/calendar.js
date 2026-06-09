@@ -36,8 +36,9 @@ function addEvento(){
   var tipo=document.getElementById('ev-tipo').value;
   var hijo=document.getElementById('ev-hijo').value;
   var resp=document.getElementById('ev-resp').value;
-  if(!titulo||!fecha) return alert('Completa el título y la fecha');
+  if(!titulo||!fecha) return showToast('Completa el título y la fecha','error');
   state.eventos.push({id:Date.now(),tipo:tipo,titulo:titulo,fecha:fecha,hijo:hijo,responsable:resp,confirmado:false});
+  guardarEstado();
   closeModal('modal-evento');
   document.getElementById('ev-titulo').value='';
   renderEventos();

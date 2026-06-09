@@ -145,6 +145,7 @@ function sendMessage(){
   var now = new Date();
   var fecha = (now.getDate())+'/'+(now.getMonth()+1)+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
   state.mensajes.push({id: state.mensajes.length+1, emisor: state.usuario, texto: txt, fecha: fecha});
+  guardarEstado();
   inp.value = '';
   renderChat();
   renderSidebar();

@@ -376,3 +376,38 @@ function filtrar(txt) {
   return resultado;
 }
 
+// ── PERSISTENCIA DE ESTADO ───────────────────
+var STATE_KEY = 'cop_state_v14';
+
+function guardarEstado() {
+  try {
+    var datos = {
+      usuario: state.usuario,
+      contactoEmergencia: state.contactoEmergencia,
+      hijos: state.hijos,
+      mensajes: state.mensajes,
+      eventos: state.eventos,
+      gastos: state.gastos,
+      acuerdos: state.acuerdos,
+      conflictos: state.conflictos
+    };
+    localStorage.setItem(STATE_KEY, JSON.stringify(datos));
+  } catch(e) {}
+}
+
+function cargarEstado() {
+  try {
+    var raw = localStorage.getItem(STATE_KEY);
+    if (!raw) return;
+    var datos = JSON.parse(raw);
+    if (datos.usuario) state.usuario = datos.usuario;
+    if (datos.contactoEmergencia) state.contactoEmergencia = datos.contactoEmergencia;
+    if (Array.isArray(datos.hijos) && datos.hijos.length) state.hijos = datos.hijos;
+    if (Array.isArray(datos.mensajes) && datos.mensajes.length) state.mensajes = datos.mensajes;
+    if (Array.isArray(datos.eventos) && datos.eventos.length) state.eventos = datos.eventos;
+    if (Array.isArray(datos.gastos) && datos.gastos.length) state.gastos = datos.gastos;
+    if (Array.isArray(datos.acuerdos) && datos.acuerdos.length) state.acuerdos = datos.acuerdos;
+    if (Array.isArray(datos.conflictos) && datos.conflictos.length) state.conflictos = datos.conflictos;
+  } catch(e) {}
+}
+

@@ -4,7 +4,7 @@
    No human figures, no emojis, no illustrations
 ═══════════════════════════════════════════════════════ */
 
-const ICONS = {
+var ICONS = {
   // Navigation
   dashboard: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>`,
   chat:      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
@@ -43,18 +43,16 @@ const ICONS = {
  * @param {string} name - Icon key from ICONS
  * @param {string} cls - Additional CSS classes
  */
-function ic(name, cls = '') {
-  const svg = ICONS[name];
+function ic(name, cls) {
+  cls = cls || '';
+  var svg = ICONS[name];
   if (!svg) return '';
-  const classes = ['ic', cls].filter(Boolean).join(' ');
-  return svg.replace('<svg ', `<svg class="${classes}" `);
+  var classes = ['ic', cls].filter(Boolean).join(' ');
+  return svg.replace('<svg ', '<svg class="' + classes + '" ');
 }
 
-/**
- * Inline SVG for dynamic injection contexts (icSvgInline alias)
- */
-function icSvgInline(name, cls = '') {
-  return ic(name, cls);
+function icSvgInline(name, cls) {
+  return ic(name, cls || '');
 }
 
 /**

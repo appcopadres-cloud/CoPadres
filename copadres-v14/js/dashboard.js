@@ -6,7 +6,7 @@ function renderSidebar(){
   var nav=document.getElementById('sidebar-nav');
   nav.innerHTML=NAV_ITEMS.map(function(item){
     return '<button class="nav-btn'+(item.id===currentPanel?' active':'')+'" data-id="'+item.id+'" onclick="goTo(\''+item.id+'\')">'
-      +'<span style="display:inline-flex;align-items:center">'+ICONS[item.icon]+'</span>'+item.label
+      +'<span style="display:inline-flex;align-items:center">'+NAV_ICONS[item.icon]+'</span>'+item.label
       +(item.id==='mensajes'&&state.mensajes.length?'<span class="nav-badge">'+state.mensajes.length+'</span>':'')
       +'</button>';
   }).join('');
