@@ -17,43 +17,42 @@ function showToast(msg, type, duration) {
 }
 
 // ── PANTALLA DE BIENVENIDA (primera vez) ─────
+var _LOGO_SVG_SM = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="80" height="80">'
+  + '<rect width="1024" height="1024" rx="220" fill="#52C896"/>'
+  + '<rect x="90" y="90" width="844" height="844" rx="160" fill="#FFFFFF"/>'
+  + '<circle cx="360" cy="330" r="115" fill="#1B4D3E"/>'
+  + '<path d="M160 780 Q160 490 360 490 Q560 490 560 780Z" fill="#1B4D3E"/>'
+  + '<circle cx="630" cy="310" r="105" fill="#3AABA6"/>'
+  + '<path d="M430 780 Q430 480 630 480 Q830 480 830 780Z" fill="#3AABA6"/>'
+  + '<circle cx="500" cy="480" r="78" fill="#3AABA6"/>'
+  + '<path d="M340 780 Q340 570 500 570 Q660 570 660 780Z" fill="#3AABA6"/>'
+  + '</svg>';
+
 function showWelcome() {
   var overlay = document.createElement('div');
   overlay.id = 'welcome-overlay';
-  overlay.innerHTML = [
-    '<div id="welcome-card">',
-    '  <div id="welcome-logo">',
-    '    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="80" height="80">',
-    '      <rect width="1024" height="1024" rx="220" fill="#52C896"/>',
-    '      <rect x="90" y="90" width="844" height="844" rx="160" fill="#FFFFFF"/>',
-    '      <circle cx="360" cy="330" r="115" fill="#1B4D3E"/>',
-    '      <path d="M160 780 Q160 490 360 490 Q560 490 560 780Z" fill="#1B4D3E"/>',
-    '      <circle cx="630" cy="310" r="105" fill="#3AABA6"/>',
-    '      <path d="M430 780 Q430 480 630 480 Q830 480 830 780Z" fill="#3AABA6"/>',
-    '      <circle cx="500" cy="480" r="78" fill="#3AABA6"/>',
-    '      <path d="M340 780 Q340 570 500 570 Q660 570 660 780Z" fill="#3AABA6"/>',
-    '    </svg>',
-    '  </div>',
-    '  <h1>Bienvenido a CoPadres</h1>',
-    '  <p>La app para organizar la crianza compartida de tus hijos con respeto y claridad.</p>',
-    '  <label for="welcome-nombre">¿Cómo te llamas?</label>',
-    '  <input id="welcome-nombre" type="text" placeholder="Ej: Mamá, Papá, tu nombre..." maxlength="30" autocomplete="off"/>',
-    '  <button id="welcome-btn" onclick="welcomePaso2()">Continuar →</button>',
-    '</div>'
-  ].join('');
+  overlay.innerHTML = '<div id="welcome-card">'
+    + '<div id="welcome-logo">' + _LOGO_SVG_SM + '</div>'
+    + '<h1>Bienvenido a CoPadres</h1>'
+    + '<p>La app para organizar la crianza compartida de tus hijos con respeto y claridad.</p>'
+    + '<p style="font-weight:700;color:#1B4D3E;margin-bottom:12px">¿Cuál es tu rol?</p>'
+    + '<div style="display:flex;gap:12px;justify-content:center;margin-bottom:8px">'
+    + '<button onclick="welcomeElegirRol(\'Mamá\')" style="flex:1;padding:20px 12px;border-radius:18px;border:2.5px solid #7c3aed;background:#f5f3ff;color:#5b21b6;font-size:16px;font-weight:800;cursor:pointer">👩 Mamá</button>'
+    + '<button onclick="welcomeElegirRol(\'Papá\')" style="flex:1;padding:20px 12px;border-radius:18px;border:2.5px solid #2563eb;background:#eff6ff;color:#1d4ed8;font-size:16px;font-weight:800;cursor:pointer">👨 Papá</button>'
+    + '</div>'
+    + '</div>';
   document.body.appendChild(overlay);
-  setTimeout(function(){ document.getElementById('welcome-nombre').focus(); }, 300);
-  document.getElementById('welcome-nombre').addEventListener('keydown', function(e){
-    if (e.key === 'Enter') welcomePaso2();
-  });
+}
+
+function welcomeElegirRol(rol) {
+  state.usuario = rol;
+  guardarEstado();
+  welcomePaso2();
 }
 
 function welcomePaso2() {
-  var input = document.getElementById('welcome-nombre');
-  var nombre = (input ? input.value.trim() : '');
-  if (!nombre) { input && input.focus(); return; }
-  state.usuario = nombre;
-  guardarEstado();
+  var nombre = state.usuario;
+  if (!nombre) return;
 
   // Si Firebase no está habilitado, saltar conexión
   if (typeof FIREBASE_ENABLED === 'undefined' || !FIREBASE_ENABLED) {
@@ -62,25 +61,12 @@ function welcomePaso2() {
 
   // Mostrar paso de conexión
   var card = document.getElementById('welcome-card');
-  card.innerHTML = [
-    '<div id="welcome-logo">',
-    '  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="70" height="70">',
-    '    <rect width="1024" height="1024" rx="220" fill="#52C896"/>',
-    '    <rect x="90" y="90" width="844" height="844" rx="160" fill="#FFFFFF"/>',
-    '    <circle cx="360" cy="330" r="115" fill="#1B4D3E"/>',
-    '    <path d="M160 780 Q160 490 360 490 Q560 490 560 780Z" fill="#1B4D3E"/>',
-    '    <circle cx="630" cy="310" r="105" fill="#3AABA6"/>',
-    '    <path d="M430 780 Q430 480 630 480 Q830 480 830 780Z" fill="#3AABA6"/>',
-    '    <circle cx="500" cy="480" r="78" fill="#3AABA6"/>',
-    '    <path d="M340 780 Q340 570 500 570 Q660 570 660 780Z" fill="#3AABA6"/>',
-    '  </svg>',
-    '</div>',
-    '<h1>Hola, ' + nombre + ' 👋</h1>',
-    '<p>¿Quieres conectarte con el otro padre/madre para compartir datos en tiempo real?</p>',
-    '<button class="welcome-btn-green" onclick="welcomeCrearSala()">🏠 Crear sala familiar</button>',
-    '<button class="welcome-btn-outline" onclick="welcomeUnirse()">🔑 Tengo un código de sala</button>',
-    '<button class="welcome-btn-skip" onclick="finishWelcome()">Omitir por ahora →</button>'
-  ].join('');
+  card.innerHTML = '<div id="welcome-logo">' + _LOGO_SVG_SM + '</div>'
+    + '<h1>Hola, ' + nombre + ' 👋</h1>'
+    + '<p>¿Quieres conectarte con el otro padre/madre para compartir datos en tiempo real?</p>'
+    + '<button class="welcome-btn-green" onclick="welcomeCrearSala()">🏠 Crear sala familiar</button>'
+    + '<button class="welcome-btn-outline" onclick="welcomeUnirse()">🔑 Tengo un código de sala</button>'
+    + '<button class="welcome-btn-skip" onclick="finishWelcome()">Omitir por ahora →</button>';
 }
 
 function welcomeCrearSala() {
