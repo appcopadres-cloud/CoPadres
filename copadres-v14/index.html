@@ -332,11 +332,16 @@
 
   <!-- PANEL: ACUERDOS -->
   <div id="panel-acuerdos" class="panel">
-    <div class="page-title" style="display:flex;align-items:center;gap:10px">
-      <span class="ic-wrap" style="width:36px;height:36px;background:#1B4D3E;color:#fff"><svg class="ic"><use href="#ic-scale"/></svg></span>
-      Acuerdos
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
+      <div>
+        <div class="page-title" style="display:flex;align-items:center;gap:10px">
+          <span class="ic-wrap" style="width:36px;height:36px;background:#1B4D3E;color:#fff"><svg class="ic"><use href="#ic-scale"/></svg></span>
+          Acuerdos
+        </div>
+        <div class="page-sub">Mediaciones y compromisos legales</div>
+      </div>
+      <button class="btn btn-green" onclick="openModal('modal-acuerdo')" style="width:auto;padding:10px 16px;font-size:13px"><svg class="ic ic-sm"><use href="#ic-plus"/></svg> Agregar</button>
     </div>
-    <div class="page-sub">Mediaciones y compromisos legales</div>
     <div id="acuerdos-list"></div>
   </div>
 
@@ -530,6 +535,24 @@
     <textarea class="inp" id="c-desc" rows="3" placeholder="Describe el incidente..." style="margin-bottom:20px"></textarea>
     <button class="btn btn-green" onclick="addConflicto()">Registrar</button>
     <button class="btn btn-outline" onclick="closeModal('modal-conflicto')" style="margin-top:8px">Cancelar</button>
+  </div>
+</div>
+
+<!-- MODAL: ACUERDO -->
+<div class="modal-overlay" id="modal-acuerdo">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div style="font-size:18px;font-weight:800;margin-bottom:20px">Nuevo Acuerdo</div>
+    <label class="lbl">Título</label>
+    <input class="inp" id="ac-titulo" placeholder="Ej: Régimen de visitas" style="margin-bottom:12px"/>
+    <label class="lbl">Tipo</label>
+    <select class="inp" id="ac-tipo" style="margin-bottom:12px">
+      <option>Custodia</option><option>Visitas</option><option>Económico</option><option>Salud</option><option>Educación</option><option>Otro</option>
+    </select>
+    <label class="lbl">Descripción</label>
+    <textarea class="inp" id="ac-desc" rows="3" placeholder="Describe el acuerdo..." style="margin-bottom:20px"></textarea>
+    <button class="btn btn-green" onclick="addAcuerdo()">Guardar acuerdo</button>
+    <button class="btn btn-outline" onclick="closeModal('modal-acuerdo')" style="margin-top:8px">Cancelar</button>
   </div>
 </div>
 

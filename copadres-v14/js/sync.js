@@ -125,7 +125,7 @@ function syncEnviarMensaje(msg) {
 // ── Re-renderizar todo tras sync ─────────────
 function syncRenderAll() {
   if (typeof renderDashboard === 'function') renderDashboard();
-  if (typeof renderCalendario === 'function') renderCalendario();
+  if (typeof renderEventos === 'function') renderEventos();
   if (typeof renderHijos === 'function') renderHijos();
   if (typeof renderGastos === 'function') renderGastos();
   if (typeof renderAcuerdos === 'function') renderAcuerdos();

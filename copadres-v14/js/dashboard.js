@@ -11,6 +11,8 @@ function renderSidebar(){
       +'</button>';
   }).join('');
   var ui=document.getElementById('user-info-sidebar');
+  if (!ui) return;
+  if (!state.usuario) { ui.innerHTML=''; return; }
   var color=state.usuario==='Mamá'?'#7c3aed':'#2563eb';
   ui.innerHTML='<div class="avatar" style="width:32px;height:32px;background:'+color+';font-size:13px">'+state.usuario[0]+'</div>'
     +'<div><div style="font-size:13px;font-weight:700">'+state.usuario+'</div><div style="font-size:11px;color:var(--sub)">Sesión activa</div></div>';
@@ -23,7 +25,7 @@ function renderSidebar(){
 
 function renderDashboard(){
   var greet=document.getElementById('hero-greeting');
-  if(greet) greet.textContent='Hola, '+state.usuario;
+  if(greet) greet.textContent=state.usuario?'Hola, '+state.usuario:'';
 
   // Chat hero: show last message
   var lastMsg=state.mensajes[state.mensajes.length-1];
@@ -70,11 +72,12 @@ function renderDashboard(){
   }).join(''):'<p style="color:var(--sub);font-size:13px;text-align:center;padding:16px 0">No hay eventos próximos</p>';
 
   var ap=document.getElementById('acuerdos-preview');
-  if(ap) ap.innerHTML=state.acuerdos.filter(function(a){return a.estado==='Vigente'}).map(function(a){
+  var vigentes=state.acuerdos.filter(function(a){return a.estado==='Vigente'});
+  if(ap) ap.innerHTML=vigentes.length?vigentes.map(function(a){
     return '<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f0fdf4;border-radius:12px;border:1px solid #bbf7d0;margin-bottom:8px">'
       +'<span class="ic-wrap" style="width:28px;height:28px;background:#15803d;color:#fff">'+icSprite('check','ic-sm')+'</span>'
       +'<div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+a.titulo+'</div>'
       +'<div style="font-size:11px;color:var(--sub);margin-top:2px">'+a.tipo+' · '+a.fecha+'</div></div></div>';
-  }).join('');
+  }).join(''):'<p style="color:var(--sub);font-size:13px;text-align:center;padding:16px 0">No hay acuerdos vigentes</p>';
 }
 
