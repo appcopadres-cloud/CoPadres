@@ -1,0 +1,122 @@
+╔══════════════════════════════════════════════════════════════════╗
+║           CoPadres v14.0.0 — Guía de Instalación               ║
+║           Crianza compartida con amor y tecnología              ║
+╚══════════════════════════════════════════════════════════════════╝
+
+URL PÚBLICA DE LA APP:
+  https://appcopadres-cloud.github.io/CoPadres/
+
+REPOSITORIO GITHUB:
+  https://github.com/appcopadres-cloud/CoPadres
+
+RELEASE OFICIAL:
+  https://github.com/appcopadres-cloud/CoPadres/releases/tag/v14.0.0
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  INSTALACIÓN EN ANDROID
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CoPadres es una PWA (Progressive Web App) — no requiere Play Store.
+
+Pasos:
+  1. Abre Google Chrome en tu celular Android
+  2. Ve a: https://appcopadres-cloud.github.io/CoPadres/
+  3. Espera que cargue completamente
+  4. Toca los 3 puntos (⋮) en la esquina superior derecha
+  5. Selecciona "Agregar a pantalla de inicio"
+  6. Confirma tocando "Agregar"
+  7. El ícono de CoPadres aparecerá en tu pantalla de inicio
+
+Resultado: La app se abre como app nativa, sin barra del navegador.
+Funciona sin internet gracias al Service Worker.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  INSTALACIÓN EN iPHONE / iPad
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+IMPORTANTE: Debes usar Safari (no Chrome ni otro navegador).
+
+Pasos:
+  1. Abre Safari en tu iPhone o iPad
+  2. Ve a: https://appcopadres-cloud.github.io/CoPadres/
+  3. Espera que cargue completamente
+  4. Toca el botón de Compartir (□ con flecha hacia arriba)
+     — está en la barra inferior de Safari
+  5. Desliza hacia abajo y toca "Añadir a pantalla de inicio"
+  6. Cambia el nombre si quieres (por defecto: "CoPadres")
+  7. Toca "Añadir" (esquina superior derecha)
+  8. El ícono aparece en tu pantalla de inicio
+
+Resultado: Se abre como app nativa con pantalla completa.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  INSTALACIÓN EN PC / MAC (Windows, macOS, Linux)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Desde Google Chrome o Microsoft Edge:
+
+Pasos:
+  1. Abre Chrome o Edge en tu PC
+  2. Ve a: https://appcopadres-cloud.github.io/CoPadres/
+  3. En la barra de direcciones verás un ícono de instalación (⊕)
+     — o haz clic en los 3 puntos (⋮) → "Instalar CoPadres"
+  4. Haz clic en "Instalar"
+  5. CoPadres se abre como ventana independiente
+  6. También aparece en el menú de aplicaciones de tu sistema
+
+Acceso rápido: Busca "CoPadres" en el menú inicio de Windows
+               o en el Launchpad de macOS.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  CÓMO COMPARTIR LA APP CON OTRAS PERSONAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Opción 1 — Compartir el enlace directo:
+  Copia y envía por WhatsApp, mensaje o email:
+  https://appcopadres-cloud.github.io/CoPadres/
+
+Opción 2 — Usar el código QR:
+  • Imprime o muestra el archivo: copadres-qr-card.png
+  • La otra persona escanea con la cámara de su celular
+  • Accede instantáneamente a la app
+
+Opción 3 — Compartir por WhatsApp:
+  • Usa el archivo: copadres-qr-card-small.png (tamaño optimizado)
+  • Envíalo como imagen por WhatsApp
+  • El destinatario escanea el QR desde la pantalla
+
+Opción 4 — Redes sociales:
+  Publica el QR en Instagram, Facebook o TikTok con el texto:
+  "Descarga CoPadres gratis — la app para copadres"
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  PREGUNTAS FRECUENTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+¿Cuesta algo?
+  No. CoPadres es completamente gratuita.
+
+¿Necesita internet siempre?
+  No. Una vez instalada, funciona sin internet gracias al
+  Service Worker que guarda los datos localmente.
+
+¿Los datos son privados?
+  Sí. Todo se guarda en el dispositivo del usuario (localStorage).
+  No hay servidor externo que almacene información personal.
+
+¿Está en la App Store o Play Store?
+  No. Es una PWA, lo que significa que se instala directamente
+  desde el navegador — sin tiendas de aplicaciones.
+
+¿Funciona en todos los celulares?
+  Sí. Compatible con Android 7+ y iOS 13+.
+  Requiere Chrome (Android) o Safari (iPhone).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CoPadres v14.0.0 — Junio 2026
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -1,0 +1,23 @@
+CoPadres v14 — URLs importantes
+================================
+
+APP PÚBLICA (usa esta para instalar):
+  https://appcopadres-cloud.github.io/CoPadres/
+
+REPOSITORIO GITHUB:
+  https://github.com/appcopadres-cloud/CoPadres
+
+RELEASE v14.0.0 (ZIP descargable):
+  https://github.com/appcopadres-cloud/CoPadres/releases/tag/v14.0.0
+
+DESCARGAR ZIP DEL PROYECTO:
+  https://github.com/appcopadres-cloud/CoPadres/archive/refs/tags/v14.0.0.zip
+
+DESCARGAR TARBALL DEL PROYECTO:
+  https://github.com/appcopadres-cloud/CoPadres/archive/refs/tags/v14.0.0.tar.gz
+
+QR PRINCIPAL (para imprimir):
+  https://appcopadres-cloud.github.io/CoPadres/assets/copadres-qr-card.png
+
+QR WHATSAPP:
+  https://appcopadres-cloud.github.io/CoPadres/assets/copadres-qr-card-small.png
