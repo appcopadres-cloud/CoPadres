@@ -32,6 +32,17 @@ function closePanicOverlay(){
   document.getElementById('panic-overlay').classList.remove('open');
 }
 
+// Abre enlace externo sin window.open/_blank para evitar "Buscar en sitio web" en iOS PWA
+function openExternal(url){
+  var a=document.createElement('a');
+  a.href=url;
+  a.rel='noopener noreferrer';
+  a.style.display='none';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){if(a.parentNode)a.parentNode.removeChild(a);},1000);
+}
+
 function triggerPanic(){
   closePanicOverlay();
   var ec=state.contactoEmergencia;
@@ -44,16 +55,16 @@ function triggerPanic(){
   var tel=ec.telefono.replace(/\s/g,'');
   var msg=encodeURIComponent('🆘 AYUDA — '+state.usuario+' necesita asistencia. Por favor contacta urgente.');
   var loc=lastLocation?encodeURIComponent('\n📍 Ubicación: https://maps.google.com/?q='+lastLocation.lat+','+lastLocation.lng):'';
-  // WhatsApp
   var waNum=tel.replace(/^\+/,'');
-  window.open('https://wa.me/'+waNum+'?text='+msg+loc,'_blank');
-  // Llamada
-  setTimeout(function(){window.location.href='tel:'+tel;},600);
-  // SMS
+  // WhatsApp — anchor click evita bug "Buscar en sitio web" en iOS PWA standalone
+  openExternal('https://wa.me/'+waNum+'?text='+msg+loc);
+  // Llamada — location.href es nativo y no sale del contexto PWA
+  setTimeout(function(){window.location.href='tel:'+tel;},800);
+  // SMS — mismo patrón anchor click
   setTimeout(function(){
     var smsBody=decodeURIComponent(msg+loc);
-    window.open('sms:'+tel+'?body='+encodeURIComponent(smsBody),'_blank');
-  },1200);
+    openExternal('sms:'+tel+'?body='+encodeURIComponent(smsBody));
+  },1600);
 }
 
 // ═══════════════════════════════════════════
@@ -126,9 +137,9 @@ function shareLocation(){
   var ec=state.contactoEmergencia;
   if(ec.telefono){
     var waNum=ec.telefono.replace(/^\+/,'').replace(/\s/g,'');
-    window.open('https://wa.me/'+waNum+'?text='+msg,'_blank');
+    openExternal('https://wa.me/'+waNum+'?text='+msg);
   } else {
-    window.open('https://wa.me/?text='+msg,'_blank');
+    openExternal('https://wa.me/?text='+msg);
   }
 }
 
@@ -138,7 +149,7 @@ function shareLocationSMS(){
   var msg=encodeURIComponent('📍 Mi ubicación: '+url+' — Copadres');
   var ec=state.contactoEmergencia;
   var tel=ec.telefono||'';
-  window.open('sms:'+tel+'?body='+msg,'_blank');
+  openExternal('sms:'+tel+'?body='+msg);
 }
 
 // Leaflet is loaded in index.html — no dynamic injection needed
