@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="noindex, nofollow, noarchive"/>
+<meta name="googlebot" content="noindex"/>
 <title>CoPadres — Analytics</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
@@ -100,12 +102,15 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 <script>
-// ── PASSWORD PROTECTION ───────────────────────────────────────────────────────
+// ── PASSWORD PROTECTION (SHA-256 hash — contraseña no queda en texto plano) ──
 (function(){
+  var HASH = '0a31953461ae3a39944ce2732af76b2371850dd7855e8d05c1446999b26296c8';
   var pw = prompt('Contraseña de administrador:');
-  if (pw !== 'copadres2024admin') {
-    window.location.href = 'index.html';
-  }
+  if (!pw) { window.location.href = 'index.html'; return; }
+  crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw)).then(function(buf){
+    var hex = Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
+    if (hex !== HASH) window.location.href = 'index.html';
+  });
 })();
 
 // ── FIREBASE INIT ─────────────────────────────────────────────────────────────
