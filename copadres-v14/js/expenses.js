@@ -50,5 +50,7 @@ function addGasto(){
   renderGastos();
   renderDashboard();
   showToast('Gasto guardado','success');
+  // Analytics: expense added
+  if (typeof analyticsEvent === 'function') { try { analyticsEvent('expense_added'); } catch(e) {} }
 }
 

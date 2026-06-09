@@ -56,5 +56,7 @@ function goTo(id){
   if(id==='conflictos') renderConflictos();
   if(id==='seguridad') renderSeguridad();
   window.scrollTo(0,0);
+  // Analytics: track panel view
+  if (typeof analyticsPage === 'function') { try { analyticsPage(id); } catch(e) {} }
 }
 

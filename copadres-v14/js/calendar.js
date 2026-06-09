@@ -48,5 +48,7 @@ function addEvento(){
   renderEventos();
   renderDashboard();
   showToast('Evento guardado','success');
+  // Analytics: event added
+  if (typeof analyticsEvent === 'function') { try { analyticsEvent('event_added'); } catch(e) {} }
 }
 

@@ -52,6 +52,8 @@ function triggerPanic(){
     showToast('Configura primero tu contacto de emergencia','warning');
     return;
   }
+  // Analytics: SOS triggered
+  if (typeof analyticsEvent === 'function') { try { analyticsEvent('sos_triggered'); } catch(e) {} }
   var tel=ec.telefono.replace(/\s/g,'');
   var msg=encodeURIComponent('🆘 AYUDA — '+state.usuario+' necesita asistencia. Por favor contacta urgente.');
   var loc=lastLocation?encodeURIComponent('\n📍 Ubicación: https://maps.google.com/?q='+lastLocation.lat+','+lastLocation.lng):'';

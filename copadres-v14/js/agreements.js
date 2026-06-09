@@ -39,6 +39,8 @@ function addAcuerdo(){
   renderAcuerdos();
   renderDashboard();
   showToast('Acuerdo guardado','success');
+  // Analytics: agreement added
+  if (typeof analyticsEvent === 'function') { try { analyticsEvent('agreement_added'); } catch(e) {} }
 }
 
 // ═══════════════════════════════════════════

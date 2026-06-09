@@ -27,6 +27,8 @@ function addConflicto(){
   renderConflictos();
   renderDashboard();
   showToast('Conflicto registrado','success');
+  // Analytics: conflict added
+  if (typeof analyticsEvent === 'function') { try { analyticsEvent('conflict_added'); } catch(e) {} }
 }
 
 // ═══════════════════════════════════════════

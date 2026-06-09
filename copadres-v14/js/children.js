@@ -47,5 +47,7 @@ function addHijo(){
   renderHijos();
   renderDashboard();
   showToast('Hijo/a agregado/a','success');
+  // Analytics: child added
+  if (typeof analyticsEvent === 'function') { try { analyticsEvent('child_added'); } catch(e) {} }
 }
 

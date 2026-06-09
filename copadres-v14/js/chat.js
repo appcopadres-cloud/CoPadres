@@ -155,6 +155,8 @@ function sendMessage(){
     renderSidebar();
     if (document.getElementById('chat-hero-last')) renderDashboard();
   }
+  // Analytics: message sent
+  if (typeof analyticsEvent === 'function') { try { analyticsEvent('message_sent'); } catch(e) {} }
   inp.value = '';
 }
 

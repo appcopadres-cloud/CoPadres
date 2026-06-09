@@ -11,6 +11,11 @@ if (typeof FIREBASE_ENABLED !== 'undefined' && FIREBASE_ENABLED) {
   if (state.usuario) syncReconectar();
 }
 
+// 2b. Inicializar analytics (fire-and-forget, nunca bloquea)
+if (typeof analyticsInit === 'function') {
+  try { analyticsInit(); } catch(e) {}
+}
+
 // 3. Handle deep link shortcuts
 (function(){
   var params = new URLSearchParams(window.location.search);

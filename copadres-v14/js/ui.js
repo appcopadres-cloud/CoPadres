@@ -88,6 +88,8 @@ function welcomeCrearSala() {
   card.innerHTML = '<h1>Creando sala...</h1><p style="text-align:center;color:#52C896">⏳ Un momento</p>';
   crearSala(state.usuario, function(codigo, err) {
     if (err) { card.innerHTML = '<h1>Error</h1><p>' + err + '</p><button onclick="finishWelcome()">Continuar sin conexión</button>'; return; }
+    // Analytics: family created
+    if (typeof analyticsEvent === 'function') { try { analyticsEvent('family_created'); } catch(e) {} }
     card.innerHTML = [
       '<h1>¡Sala creada! 🎉</h1>',
       '<p>Comparte este código con el otro padre/madre:</p>',
@@ -124,6 +126,8 @@ function welcomeConfirmarUnirse() {
   card.innerHTML = '<h1>Conectando...</h1><p style="text-align:center;color:#52C896">⏳ Un momento</p>';
   unirseASala(codigo, state.usuario, function(ok, err) {
     if (!ok) { card.innerHTML = '<h1>Código no encontrado</h1><p>' + (err||'Verifica el código') + '</p><button onclick="welcomeUnirse()">Intentar de nuevo</button>'; return; }
+    // Analytics: family joined
+    if (typeof analyticsEvent === 'function') { try { analyticsEvent('family_joined'); } catch(e) {} }
     card.innerHTML = [
       '<h1>¡Conectado! 🔗</h1>',
       '<p>Ya estás sincronizado/a con la sala <strong>' + codigo + '</strong>.</p>',
@@ -140,6 +144,8 @@ function finishWelcome() {
     overlay.style.transition = 'opacity .3s';
     setTimeout(function(){ overlay.remove(); }, 300);
   }
+  // Analytics: registration complete
+  if (typeof analyticsEvent === 'function') { try { analyticsEvent('registration_complete'); } catch(e) {} }
   renderSidebar();
   renderDashboard();
 }
