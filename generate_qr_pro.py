@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """CoPadres — QR Card profesional rediseñado"""
-import qrcode, math, os
+import qrcode, math, os, io, cairosvg
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 URL = "https://appcopadres-cloud.github.io/CoPadres/"
@@ -29,27 +29,21 @@ def font(size, bold=False):
 def text_w(txt, f): return f.getbbox(txt)[2] - f.getbbox(txt)[0]
 def text_h(txt, f): return f.getbbox(txt)[3] - f.getbbox(txt)[1]
 
-# ── Logo CoPadres (supersampling 4x) ─────────────────────────────
+# ── Logo CoPadres (SVG oficial) ───────────────────────────────────
+_LOGO_SVG = '''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <rect width="1024" height="1024" rx="220" fill="#52C896"/>
+  <rect x="90" y="90" width="844" height="844" rx="160" fill="#FFFFFF"/>
+  <circle cx="360" cy="330" r="115" fill="#1B4D3E"/>
+  <path d="M160 780 Q160 490 360 490 Q560 490 560 780Z" fill="#1B4D3E"/>
+  <circle cx="630" cy="310" r="105" fill="#3AABA6"/>
+  <path d="M430 780 Q430 480 630 480 Q830 480 830 780Z" fill="#3AABA6"/>
+  <circle cx="500" cy="480" r="78" fill="#3AABA6"/>
+  <path d="M340 780 Q340 570 500 570 Q660 570 660 780Z" fill="#3AABA6"/>
+</svg>'''
+
 def make_logo(size):
-    s = size * 4
-    img = Image.new("RGBA", (s, s), (0,0,0,0))
-    d   = ImageDraw.Draw(img)
-    r   = int(s * 0.22)
-    d.rounded_rectangle([0,0,s-1,s-1], radius=r, fill=(*GREEN,255))
-    ip, ir = int(s*.09), int(s*.15)
-    d.rounded_rectangle([ip,ip,s-ip-1,s-ip-1], radius=ir, fill=WHITE)
-    def circ(cx,cy,r,c): d.ellipse([cx-r,cy-r,cx+r,cy+r], fill=c)
-    def bod(cx,ct,rx,ry,c):
-        d.ellipse([cx-rx,ct,cx+rx,ct+ry*2], fill=c)
-        d.rectangle([cx-rx,ct,cx+rx,ct+ry], fill=c)
-    a1x,a1y,h1=int(s*.34),int(s*.32),int(s*.12)
-    circ(a1x,a1y,h1,(*DARK,255)); bod(a1x,a1y+int(h1*.75),int(s*.14),int(s*.28),(*DARK,255))
-    a2x,a2y,h2=int(s*.64),int(s*.29),int(s*.105)
-    circ(a2x,a2y,h2,(*TEAL,255)); bod(a2x,a2y+int(h2*.75),int(s*.125),int(s*.30),(*TEAL,255))
-    kx,ky,hk=int(s*.50),int(s*.49),int(s*.080)
-    circ(kx,ky,hk,(*TEAL,255)); bod(kx,ky+int(hk*.75),int(s*.093),int(s*.22),(*TEAL,255))
-    img = img.filter(ImageFilter.GaussianBlur(radius=1.6))
-    return img.resize((size,size), Image.LANCZOS)
+    png = cairosvg.svg2png(bytestring=_LOGO_SVG.encode(), output_width=size, output_height=size)
+    return Image.open(io.BytesIO(png)).convert("RGBA")
 
 # ── QR ────────────────────────────────────────────────────────────
 def make_qr(size):
