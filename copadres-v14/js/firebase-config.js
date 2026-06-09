@@ -9,12 +9,12 @@
  */
 
 var FIREBASE_CONFIG = {
-  apiKey:            "TU_API_KEY",
-  authDomain:        "TU_PROYECTO.firebaseapp.com",
-  projectId:         "TU_PROYECTO_ID",
-  storageBucket:     "TU_PROYECTO.appspot.com",
-  messagingSenderId: "TU_SENDER_ID",
-  appId:             "TU_APP_ID"
+  apiKey:            "AIzaSyDqC-1Rji6ENEPRYv7hRe-mjL907KJGAKY",
+  authDomain:        "copadrestop.firebaseapp.com",
+  projectId:         "copadrestop",
+  storageBucket:     "copadrestop.firebasestorage.app",
+  messagingSenderId: "1046520553995",
+  appId:             "1:1046520553995:web:9ce79b63447cac47aadd0e"
 };
 
 // NO modificar esta línea — se usa en init.js
