@@ -57,9 +57,13 @@ function unirseASala(codigo, nombre, callback) {
     if (!doc.exists) { callback && callback(false, 'Código no encontrado'); return; }
     var userId = 'u_' + Date.now();
     var miembros = doc.data().miembros || [];
-    // Evitar duplicados por nombre
-    var existe = miembros.some(function(m) { return m.nombre === nombre; });
-    if (!existe) miembros.push({ id: userId, nombre: nombre });
+    // Evitar duplicados por nombre — reusar userId existente si ya está
+    var existente = miembros.find(function(m) { return m.nombre === nombre; });
+    if (existente) {
+      userId = existente.id;
+    } else {
+      miembros.push({ id: userId, nombre: nombre });
+    }
     return SYNC.db.collection('familias').doc(codigo).update({ miembros: miembros }).then(function() {
       SYNC.familyId = codigo;
       SYNC.userId   = userId;

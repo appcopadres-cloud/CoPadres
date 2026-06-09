@@ -10,6 +10,10 @@ function renderEventos(){
   if(sel) sel.innerHTML=state.hijos.map(function(h){return '<option>'+h.nombre+'</option>'}).join('')+'<option>Ambos</option>';
 
   var sorted=[...state.eventos].sort(function(a,b){return a.fecha.localeCompare(b.fecha)});
+  if(!sorted.length){
+    list.innerHTML='<div class="card" style="text-align:center;padding:30px"><div style="margin-bottom:14px"><span class="ic-wrap" style="width:64px;height:64px;background:#eff6ff;color:#2563eb">'+icSprite('calendar','ic-lg')+'</span></div><div style="font-weight:700;color:#1B4D3E">Sin eventos registrados</div><div style="font-size:13px;color:var(--sub);margin-top:4px">Agrega eventos del calendario compartido</div><button class="btn btn-green" onclick="openModal(\'modal-evento\')" style="margin-top:16px;width:auto;padding:10px 20px;font-size:13px">+ Agregar evento</button></div>';
+    return;
+  }
   var chipMap={Colegio:'blue',Salud:'green',Legal:'purple',Actividad:'orange',Otro:'gray'};
   var typeIcons={Colegio:'school',Salud:'health',Legal:'gavel',Actividad:'sparkle',Otro:'calendar'};
   list.innerHTML=sorted.map(function(e){
@@ -42,5 +46,7 @@ function addEvento(){
   closeModal('modal-evento');
   document.getElementById('ev-titulo').value='';
   renderEventos();
+  renderDashboard();
+  showToast('Evento guardado','success');
 }
 

@@ -58,8 +58,8 @@ function triggerPanic(){
   var waNum=tel.replace(/^\+/,'');
   // WhatsApp — anchor click evita bug "Buscar en sitio web" en iOS PWA standalone
   openExternal('https://wa.me/'+waNum+'?text='+msg+loc);
-  // Llamada — location.href es nativo y no sale del contexto PWA
-  setTimeout(function(){window.location.href='tel:'+tel;},800);
+  // Llamada — mismo patrón anchor click para evitar salir del contexto PWA en iOS
+  setTimeout(function(){openExternal('tel:'+tel);},800);
   // SMS — mismo patrón anchor click
   setTimeout(function(){
     var smsBody=decodeURIComponent(msg+loc);

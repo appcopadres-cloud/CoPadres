@@ -107,7 +107,13 @@ function welcomeUnirse() {
     '<button class="welcome-btn-green" onclick="welcomeConfirmarUnirse()">Conectarse →</button>',
     '<button class="welcome-btn-skip" onclick="welcomePaso2()">← Volver</button>'
   ].join('');
-  setTimeout(function(){ var el=document.getElementById('welcome-codigo'); if(el) el.focus(); }, 200);
+  setTimeout(function(){
+    var el=document.getElementById('welcome-codigo');
+    if(el){
+      el.focus();
+      el.addEventListener('keydown', function(e){ if(e.key==='Enter') welcomeConfirmarUnirse(); });
+    }
+  }, 200);
 }
 
 function welcomeConfirmarUnirse() {
@@ -220,7 +226,13 @@ function welcomeUnirseModal() {
     '<button class="btn btn-outline" onclick="closeModal(\'modal-sala\')" style="margin-top:8px">Cancelar</button>'
   ].join('');
   openModal('modal-sala');
-  setTimeout(function(){ var el=document.getElementById('modal-codigo-inp'); if(el) el.focus(); }, 200);
+  setTimeout(function(){
+    var el=document.getElementById('modal-codigo-inp');
+    if(el){
+      el.focus();
+      el.addEventListener('keydown', function(e){ if(e.key==='Enter') modalConfirmarUnirse(); });
+    }
+  }, 200);
 }
 
 function modalConfirmarUnirse() {

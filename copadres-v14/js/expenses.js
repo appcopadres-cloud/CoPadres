@@ -16,6 +16,10 @@ function renderGastos(){
   var catIcons={Educación:'school',Salud:'health',Alimentación:'food',Transporte:'car',Ropa:'shirt',Otro:'wallet'};
   var list=document.getElementById('gastos-list');
   if(!list) return;
+  if(!state.gastos.length){
+    list.innerHTML='<div class="card" style="text-align:center;padding:30px"><div style="margin-bottom:14px"><span class="ic-wrap" style="width:64px;height:64px;background:#faf5ff;color:#7c3aed">'+icSprite('wallet','ic-lg')+'</span></div><div style="font-weight:700;color:#1B4D3E">Sin gastos registrados</div><div style="font-size:13px;color:var(--sub);margin-top:4px">Registra los gastos compartidos de los niños</div><button class="btn btn-green" onclick="openModal(\'modal-gasto\')" style="margin-top:16px;width:auto;padding:10px 20px;font-size:13px">+ Registrar gasto</button></div>';
+    return;
+  }
   list.innerHTML=[...state.gastos].reverse().map(function(g){
     var color=g.pagador==='Mamá'?'#7c3aed':'#2563eb';
     var icName=catIcons[g.categoria]||'wallet';
@@ -44,5 +48,7 @@ function addGasto(){
   document.getElementById('g-desc').value='';
   document.getElementById('g-monto').value='';
   renderGastos();
+  renderDashboard();
+  showToast('Gasto guardado','success');
 }
 

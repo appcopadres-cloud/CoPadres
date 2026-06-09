@@ -125,7 +125,7 @@ function usarAlternativa() {
   ocultarBanner();
   inp.classList.remove('inp-blocked');
   var btn = document.getElementById('send-btn');
-  if (btn) { btn.textContent = 'Enviar mensaje →'; btn.disabled = false; }
+  if (btn) { btn.innerHTML = '<svg class="ic ic-sm"><use href="#ic-send"/></svg> Enviar mensaje →'; btn.disabled = false; }
   inp.focus();
 }
 
@@ -181,11 +181,11 @@ document.addEventListener('DOMContentLoaded', function(){
     if (r.esOfensivo) {
       inp.classList.add('inp-blocked');
       mostrarBannerBloqueo(r);
-      if (btn){ btn.textContent = '🚫 Bloqueado — usa la alternativa'; btn.disabled = true; }
+      if (btn){ btn.innerHTML = '🚫 Bloqueado — usa la alternativa'; btn.disabled = true; }
     } else {
       inp.classList.remove('inp-blocked');
       ocultarBanner();
-      if (btn){ btn.textContent = 'Enviar mensaje →'; btn.disabled = false; }
+      if (btn){ btn.innerHTML = '<svg class="ic ic-sm"><use href="#ic-send"/></svg> Enviar mensaje →'; btn.disabled = false; }
     }
   });
 });

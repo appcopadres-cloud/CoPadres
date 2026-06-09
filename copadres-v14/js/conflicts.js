@@ -25,6 +25,8 @@ function addConflicto(){
   closeModal('modal-conflicto');
   document.getElementById('c-desc').value='';
   renderConflictos();
+  renderDashboard();
+  showToast('Conflicto registrado','success');
 }
 
 // ═══════════════════════════════════════════

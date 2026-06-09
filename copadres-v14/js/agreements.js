@@ -37,6 +37,7 @@ function addAcuerdo(){
   titulo.value='';
   desc.value='';
   renderAcuerdos();
+  renderDashboard();
   showToast('Acuerdo guardado','success');
 }
 

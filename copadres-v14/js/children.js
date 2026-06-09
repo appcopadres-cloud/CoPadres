@@ -11,6 +11,10 @@ function calcEdad(f){
 function renderHijos(){
   var list=document.getElementById('hijos-list');
   if(!list) return;
+  if(!state.hijos.length){
+    list.innerHTML='<div class="card" style="text-align:center;padding:30px"><div style="margin-bottom:14px"><span class="ic-wrap" style="width:64px;height:64px;background:#e0f2fe;color:#0369a1">'+icSprite('kids','ic-lg')+'</span></div><div style="font-weight:700;color:#1B4D3E">Sin hijos registrados</div><div style="font-size:13px;color:var(--sub);margin-top:4px">Agrega el perfil de tus hijos</div><button class="btn btn-green" onclick="openModal(\'modal-hijo\')" style="margin-top:16px;width:auto;padding:10px 20px;font-size:13px">+ Agregar hijo</button></div>';
+    return;
+  }
   var gradients=[['#52C896','#3AA8A0'],['#2563eb','#7c3aed'],['#ea580c','#f59e0b'],['#ec4899','#8b5cf6']];
   list.innerHTML=state.hijos.map(function(h,i){
     var edad=calcEdad(h.fechaNacimiento);
@@ -41,5 +45,7 @@ function addHijo(){
   closeModal('modal-hijo');
   document.getElementById('h-nombre').value='';
   renderHijos();
+  renderDashboard();
+  showToast('Hijo/a agregado/a','success');
 }
 

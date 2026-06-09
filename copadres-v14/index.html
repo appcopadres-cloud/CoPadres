@@ -240,7 +240,7 @@
       </div>
       <div style="display:flex;gap:8px">
         <button onclick="usarAlternativa()" style="flex:1;background:#1B4D3E;color:#fff;border:none;border-radius:10px;padding:9px 12px;font-size:12px;font-weight:700;cursor:pointer">✏️ Usar alternativa</button>
-        <button onclick="document.getElementById('chat-input').value='';ocultarBanner();document.getElementById('chat-input').classList.remove('inp-blocked');var b=document.getElementById('send-btn');if(b){b.textContent='Enviar mensaje →';b.disabled=false;}" style="flex:1;background:#f3f4f6;color:#374151;border:none;border-radius:10px;padding:9px 12px;font-size:12px;font-weight:700;cursor:pointer">🗑️ Borrar y reescribir</button>
+        <button onclick="document.getElementById('chat-input').value='';ocultarBanner();document.getElementById('chat-input').classList.remove('inp-blocked');var b=document.getElementById('send-btn');if(b){b.innerHTML='<svg class=&quot;ic ic-sm&quot;><use href=&quot;#ic-send&quot;/></svg> Enviar mensaje →';b.disabled=false;}" style="flex:1;background:#f3f4f6;color:#374151;border:none;border-radius:10px;padding:9px 12px;font-size:12px;font-weight:700;cursor:pointer">🗑️ Borrar y reescribir</button>
       </div>
     </div>
 
